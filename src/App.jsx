@@ -1203,9 +1203,8 @@ const CSS = `
 *,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
 
 /* ── iOS Safari scroll: the only pattern that works ── */
-html{ height:100%; overflow:hidden; }
-body{ height:100%; overflow:hidden; background:var(--bg); }
-#root{ height:100%; overflow:hidden; }
+html,body{ width:100%; height:100%; margin:0; padding:0; background:var(--bg); }
+#root{ width:100%; height:100%; }
 
 ::-webkit-scrollbar{ width:2px; }
 ::-webkit-scrollbar-track{ background:transparent; }
@@ -1214,6 +1213,7 @@ body{ height:100%; overflow:hidden; background:var(--bg); }
 /* page layers */
 .page{
   position:fixed; top:0; left:0; right:0; bottom:0;
+  width:100%; height:100%;
   transition:opacity 1.2s ease;
 }
 .page.hidden{ opacity:0; pointer-events:none; }
@@ -1226,6 +1226,7 @@ body{ height:100%; overflow:hidden; background:var(--bg); }
 
 /* CURTAIN */
 .curtain{
+  position:fixed; top:0; left:0; right:0; bottom:0;
   z-index:300;
   background:#0a1020;
   cursor:pointer; overflow:hidden;
@@ -1272,6 +1273,7 @@ body{ height:100%; overflow:hidden; background:var(--bg); }
   -webkit-overflow-scrolling:touch;
   overscroll-behavior-y:contain;
   background:var(--bg);
+  display:block;
 }
 
 /* floral bg */
@@ -1883,7 +1885,7 @@ export default function App(){
 
       {}
       <div
-        className={`page curtain${screen==='invite'?' hidden':''}`}
+        className="curtain" style={{ opacity: screen==='invite'?0:1, pointerEvents: screen==='invite'?'none':'all', transition:'opacity 1.2s ease' }}
         onClick={openCurtain}
       >
         <video ref={cvRef} className="cv-vid"
@@ -1900,8 +1902,7 @@ export default function App(){
 
       {}
       <div
-        className={`page invite${screen==='invite'?'':' hidden'}`}
-        style={{ '--floral':`url(${IMG_FLORAL})`, '--table':`url(${IMG_TABLE})` }}
+        className="invite" style={{ '--floral-url':`url(${IMG_FLORAL})`, '--table-url':`url(${IMG_TABLE})`, opacity: screen==='invite'?1:0, pointerEvents: screen==='invite'?'all':'none', transition:'opacity 1.2s ease' }}
       >
         {/* floral background */}
         <div className="floral-bg"/>

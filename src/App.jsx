@@ -25,6 +25,8 @@ html, body, #root {
   width:100%; height:100%;
   background:#f7f5f2;
   overflow:hidden;
+  position:fixed;
+  top:0; left:0;
 }
 
 ::-webkit-scrollbar { width:2px; }
@@ -35,6 +37,7 @@ html, body, #root {
   position:fixed; inset:0;
   width:100%; height:100%;
   transition: opacity 1.2s ease;
+  -webkit-overflow-scrolling:touch;
 }
 .page.hidden { opacity:0; pointer-events:none; }
 .page.gone   { display:none; }
@@ -104,7 +107,10 @@ html, body, #root {
   -webkit-overflow-scrolling:touch;
   overscroll-behavior-y:contain;
   background:var(--bg);
-  position:relative;
+  position:absolute;
+  inset:0;
+  touch-action:pan-y;
+  will-change:scroll-position;
 }
 
 /* ── floral bg layer (fixed behind everything) */
